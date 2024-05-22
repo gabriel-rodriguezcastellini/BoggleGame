@@ -11,7 +11,7 @@ function startGame(event) {
   event.preventDefault();
   var playerName = document.getElementById("player-name").value;
   if (playerName.length < 3) {
-    alert("El nombre debe tener al menos 3 letras");
+    showModal("El nombre debe tener al menos 3 letras");
     return;
   }
   initializeBoard();
@@ -49,6 +49,26 @@ function updateTimerDisplay(time) {
 function endGame() {
   alert("El tiempo se ha acabado!");
   // Lógica para finalizar el juego
+}
+
+// Función para mostrar el modal
+function showModal(message) {
+  var modal = document.getElementById("modal");
+  var modalMessage = document.getElementById("modal-message");
+  var closeButton = document.querySelector(".close-button");
+
+  modalMessage.innerText = message;
+  modal.style.display = "block";
+
+  closeButton.onclick = function () {
+    modal.style.display = "none";
+  };
+
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  };
 }
 
 // Asignar manejadores de eventos
