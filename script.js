@@ -47,8 +47,9 @@ function updateTimerDisplay(time) {
 
 // Función para finalizar el juego
 function endGame() {
-  alert("El tiempo se ha acabado!");
-  // Lógica para finalizar el juego
+  showModal("El tiempo se ha acabado! Tu puntaje final es: " + score);
+  // Lógica adicional para finalizar el juego, como deshabilitar el tablero
+  disableBoard();
 }
 
 // Función para mostrar el modal
@@ -69,6 +70,16 @@ function showModal(message) {
       modal.style.display = "none";
     }
   };
+}
+
+// Función para deshabilitar el tablero al final del juego
+function disableBoard() {
+  var board = document.getElementById("game-board");
+  var letters = board.getElementsByTagName("div");
+  for (var i = 0; i < letters.length; i++) {
+    letters[i].style.pointerEvents = "none";
+    letters[i].style.opacity = "0.5";
+  }
 }
 
 // Asignar manejadores de eventos
