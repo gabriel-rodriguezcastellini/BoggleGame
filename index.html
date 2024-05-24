@@ -28,6 +28,21 @@
         </form>
         <div id="score">Puntaje: 0</div>
         <div id="timer">Tiempo: 3:00</div>
+        <form id="word-form">
+          <label for="word-input">Ingresa palabra:</label>
+          <input
+            type="text"
+            id="word-input"
+            name="word-input"
+            required
+            minlength="3"
+          />
+          <button type="submit">Enviar Palabra</button>
+        </form>
+        <div id="found-words">
+          <h3>Palabras Encontradas</h3>
+          <ul id="word-list"></ul>
+        </div>
       </aside>
     </main>
     <footer>
