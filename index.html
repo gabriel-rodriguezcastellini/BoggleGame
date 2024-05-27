@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -7,56 +7,30 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header>
-      <h1>Boggle Game</h1>
-    </header>
-    <main>
-      <section id="game-board">
-        <!-- Tablero del juego -->
-      </section>
-      <aside>
-        <form id="player-form">
-          <label for="player-name">Nombre del jugador:</label>
-          <input
-            type="text"
-            id="player-name"
-            name="player-name"
-            required
-            minlength="3"
-          />
-          <button type="submit">Iniciar Juego</button>
-        </form>
-        <div id="score">Puntaje: 0</div>
-        <div id="timer">Tiempo: 3:00</div>
-        <form id="word-form">
-          <label for="word-input">Ingresa palabra:</label>
-          <input
-            type="text"
-            id="word-input"
-            name="word-input"
-            required
-            minlength="3"
-          />
-          <button type="submit">Enviar Palabra</button>
-        </form>
-        <div id="found-words">
-          <h3>Palabras Encontradas</h3>
-          <ul id="word-list"></ul>
-        </div>
-      </aside>
-    </main>
-    <footer>
-      <p>&copy; 2024 Boggle Game</p>
-    </footer>
-
-    <!-- Modal -->
+    <div id="game-container">
+      <form id="player-form">
+        <input
+          type="text"
+          id="player-name"
+          placeholder="Ingresa tu nombre"
+          required
+        />
+        <button type="submit">Iniciar Juego</button>
+      </form>
+      <div id="game-board"></div>
+      <div id="score">Puntaje: 0</div>
+      <div id="timer">Tiempo: 3:00</div>
+      <form id="word-form">
+        <button type="submit">Enviar Palabra</button>
+      </form>
+      <ul id="word-list"></ul>
+    </div>
     <div id="modal" class="modal">
       <div class="modal-content">
         <span class="close-button">&times;</span>
         <p id="modal-message"></p>
       </div>
     </div>
-
     <script src="script.js"></script>
   </body>
 </html>

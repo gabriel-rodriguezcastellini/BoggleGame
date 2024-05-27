@@ -38,6 +38,25 @@ main {
   font-size: 1.5rem;
 }
 
+/* Mover los estilos específicos de board-cell aquí */
+.board-cell {
+  width: 60px;
+  height: 60px;
+  display: inline-block;
+  text-align: center;
+  line-height: 60px;
+  font-size: 24px;
+  border: 1px solid #000;
+  cursor: pointer;
+  box-sizing: border-box; /* Asegurarse de que el tamaño incluye el borde */
+  background-color: #eee; /* Color base */
+}
+
+#game-board .board-cell.selected {
+  background-color: #ffd700; /* Color dorado para la selección */
+  color: #000;
+}
+
 aside {
   flex: 1;
   display: flex;
