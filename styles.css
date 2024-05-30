@@ -145,3 +145,7 @@ form button:hover {
   margin-top: 1rem;
   color: #333;
 }
+
+a {
+  color: #fff;
+}

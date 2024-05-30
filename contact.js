@@ -25,7 +25,7 @@ document
       return;
     }
 
-    if (message.length < 6) {
+    if (message.length < 5) {
       modalMessage.innerText = "El mensaje debe tener más de 5 caracteres.";
       modal.style.display = "block";
       return;
