@@ -54,6 +54,15 @@ function selectLetter(event) {
     selectedLetters.splice(posIndex, 1);
     selectedPositions.splice(posIndex, 1);
     cell.classList.remove("selected");
+    cell.classList.remove("last-selected");
+    var lastPos = selectedPositions[selectedPositions.length - 1];
+
+    if (lastPos) {
+      document
+        .querySelector(`[data-row="${lastPos[0]}"][data-col="${lastPos[1]}"]`)
+        .classList.add("last-selected");
+    }
+
     updateCurrentWord();
     return;
   }
@@ -69,6 +78,10 @@ function selectLetter(event) {
   selectedLetters.push(cell.innerText);
   selectedPositions.push([row, col]);
   cell.classList.add("selected");
+  document
+    .querySelectorAll(".board-cell")
+    .forEach((element) => element.classList.remove("last-selected"));
+  cell.classList.add("last-selected");
   updateCurrentWord();
 }
 
@@ -185,7 +198,10 @@ function resetSelection() {
   selectedLetters = [];
   selectedPositions = [];
   var selectedCells = document.querySelectorAll(".selected");
-  selectedCells.forEach((cell) => cell.classList.remove("selected"));
+  selectedCells.forEach((cell) => {
+    cell.classList.remove("selected");
+    cell.classList.remove("last-selected");
+  });
   updateCurrentWord();
 }
 
