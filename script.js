@@ -43,46 +43,89 @@ function initializeBoard() {
 }
 
 function selectLetter(event) {
-  var cell = event.target;
-  var row = parseInt(cell.dataset.row);
-  var col = parseInt(cell.dataset.col);
+  var selectedCell = event.target;
+  var selectedRow = parseInt(selectedCell.dataset.row);
+  var selectedCol = parseInt(selectedCell.dataset.col);
 
   var posIndex = selectedPositions.findIndex(
-    (pos) => pos[0] === row && pos[1] === col
+    (pos) => pos[0] === selectedRow && pos[1] === selectedCol
   );
   if (posIndex !== -1) {
     selectedLetters.splice(posIndex, 1);
     selectedPositions.splice(posIndex, 1);
-    cell.classList.remove("selected");
-    cell.classList.remove("last-selected");
-    var lastPos = selectedPositions[selectedPositions.length - 1];
-
-    if (lastPos) {
-      document
-        .querySelector(`[data-row="${lastPos[0]}"][data-col="${lastPos[1]}"]`)
-        .classList.add("last-selected");
-    }
-
+    selectedCell.classList.remove("selected");
+    updateLastSelected();
+    updateNextSelectable();
     updateCurrentWord();
     return;
   }
 
   if (selectedPositions.length > 0) {
     var lastPos = selectedPositions[selectedPositions.length - 1];
-    if (!isContiguous(lastPos[0], lastPos[1], row, col)) {
+    if (!isContiguous(lastPos[0], lastPos[1], selectedRow, selectedCol)) {
       showModal("Las letras deben ser contiguas");
       return;
     }
   }
 
-  selectedLetters.push(cell.innerText);
-  selectedPositions.push([row, col]);
-  cell.classList.add("selected");
+  selectedLetters.push(selectedCell.innerText);
+  selectedPositions.push([selectedRow, selectedCol]);
+  selectedCell.classList.add("selected");
+  document.querySelectorAll(".board-cell").forEach((element) => {
+    element.classList.remove("last-selected");
+    element.classList.remove("next-selectable");
+  });
+  updateLastSelected();
+  updateCurrentWord();
+  updateNextSelectable();
+}
+
+function updateLastSelected() {
   document
     .querySelectorAll(".board-cell")
     .forEach((element) => element.classList.remove("last-selected"));
-  cell.classList.add("last-selected");
-  updateCurrentWord();
+
+  if (!selectedPositions.length) {
+    return;
+  }
+
+  var lastSelectedRow = selectedPositions[selectedPositions.length - 1][0];
+  var lastSelectedCol = selectedPositions[selectedPositions.length - 1][1];
+
+  document
+    .querySelector(
+      `[data-row="${lastSelectedRow}"][data-col="${lastSelectedCol}"]`
+    )
+    .classList.add("last-selected");
+}
+
+function updateNextSelectable() {
+  document
+    .querySelectorAll(".board-cell")
+    .forEach((element) => element.classList.remove("next-selectable"));
+
+  if (!selectedPositions.length) {
+    return;
+  }
+
+  var lastSelectedRow = selectedPositions[selectedPositions.length - 1][0];
+  var lastSelectedCol = selectedPositions[selectedPositions.length - 1][1];
+
+  for (let row = lastSelectedRow - 1; row <= lastSelectedRow + 1; row++) {
+    for (let col = lastSelectedCol - 1; col <= lastSelectedCol + 1; col++) {
+      let cell = document.querySelector(
+        `[data-row="${row}"][data-col="${col}"]`
+      );
+
+      if (cell) {
+        cell.classList.add("next-selectable");
+      }
+    }
+  }
+
+  document
+    .querySelectorAll(".selected, .last-selected")
+    .forEach((element) => element.classList.remove("next-selectable"));
 }
 
 function isContiguous(x1, y1, x2, y2) {
@@ -197,10 +240,11 @@ function updateWordList(word) {
 function resetSelection() {
   selectedLetters = [];
   selectedPositions = [];
-  var selectedCells = document.querySelectorAll(".selected");
+  var selectedCells = document.querySelectorAll(".board-cell");
   selectedCells.forEach((cell) => {
     cell.classList.remove("selected");
     cell.classList.remove("last-selected");
+    cell.classList.remove("next-selectable");
   });
   updateCurrentWord();
 }
@@ -212,3 +256,9 @@ function updateCurrentWord() {
 
 document.getElementById("player-form").addEventListener("submit", startGame);
 document.getElementById("word-form").addEventListener("submit", submitWord);
+
+function indexExists(arr, row, col) {
+  return arr.some(
+    ([currentRow, ...rest]) => currentRow === row && rest[col] !== undefined
+  );
+}

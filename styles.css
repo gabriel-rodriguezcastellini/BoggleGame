@@ -30,34 +30,32 @@ main {
   gap: 10px;
 }
 
-#game-board > div {
+.board-cell {
   width: 20%;
+  height: 60px;
   padding: 1rem;
   background-color: #eee;
   text-align: center;
   font-size: 1.5rem;
-}
-
-.board-cell {
-  width: 60px;
-  height: 60px;
   display: inline-block;
-  text-align: center;
   line-height: 60px;
-  font-size: 24px;
   border: 1px solid #000;
   cursor: pointer;
   box-sizing: border-box;
   background-color: #eee;
 }
 
-#game-board .board-cell.selected {
+.board-cell.selected {
   background-color: #ffd700;
   color: #000;
 }
 
 .board-cell.last-selected {
   border: 2px solid #ff0000;
+}
+
+.board-cell.next-selectable {
+  background-color: #add8e6;
 }
 
 aside {
