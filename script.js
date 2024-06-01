@@ -256,9 +256,3 @@ function updateCurrentWord() {
 
 document.getElementById("player-form").addEventListener("submit", startGame);
 document.getElementById("word-form").addEventListener("submit", submitWord);
-
-function indexExists(arr, row, col) {
-  return arr.some(
-    ([currentRow, ...rest]) => currentRow === row && rest[col] !== undefined
-  );
-}
