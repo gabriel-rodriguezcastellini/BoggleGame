@@ -42,7 +42,6 @@ main {
   border: 1px solid #000;
   cursor: pointer;
   box-sizing: border-box;
-  background-color: #eee;
 }
 
 .board-cell.selected {
