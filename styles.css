@@ -150,3 +150,12 @@ form button:hover {
 a {
   color: #fff;
 }
+
+#timer {
+  font-size: 1.2rem;
+}
+
+#timer.warning {
+  color: red;
+  font-weight: bold;
+}

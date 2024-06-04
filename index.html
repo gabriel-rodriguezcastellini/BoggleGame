@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <audio id="alert-sound" src="alert.mp3" preload="auto"></audio>
     <div id="game-container">
       <form id="player-form">
         <input
@@ -17,9 +18,19 @@
         />
         <button type="submit">Iniciar Juego</button>
       </form>
+      <div>
+        <label for="timer-select"
+          >Selecciona la duración del temporizador:</label
+        >
+        <select id="timer-select">
+          <option value="60">1 minuto</option>
+          <option value="120">2 minutos</option>
+          <option value="180">3 minutos</option>
+        </select>
+      </div>
       <div id="game-board"></div>
       <div id="score">Puntaje: 0</div>
-      <div id="timer">Tiempo: 3:00</div>
+      <div id="timer">Tiempo restante: 0 segundos</div>
       <form id="word-form">
         <button type="submit">Enviar Palabra</button>
       </form>

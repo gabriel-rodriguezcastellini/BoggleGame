@@ -1,6 +1,9 @@
 "use strict";
 
 var timer;
+var timeLeft;
+var timerSelect = document.getElementById("timer-select");
+var alertSound = document.getElementById("alert-sound");
 var score = 0;
 var wordsFound = [];
 var boardLetters = [];
@@ -135,22 +138,28 @@ function isContiguous(x1, y1, x2, y2) {
 }
 
 function startTimer() {
-  var timeRemaining = 180;
-  timer = setInterval(function () {
-    if (timeRemaining <= 0) {
+  clearInterval(timer);
+  timeLeft = parseInt(timerSelect.value, 10);
+  var timerElement = document.getElementById("timer");
+  timerElement.textContent = `Tiempo restante: ${timeLeft} segundos`;
+  timerElement.classList.remove("warning");
+
+  timer = setInterval(() => {
+    timeLeft--;
+    timerElement.textContent = `Tiempo restante: ${timeLeft} segundos`;
+
+    if (timeLeft <= 10) {
+      timerElement.classList.add("warning");
+      if (timeLeft === 10) {
+        alertSound.play(); // Reproducir sonido de alerta
+      }
+    }
+
+    if (timeLeft <= 0) {
       clearInterval(timer);
       endGame();
     }
-    updateTimerDisplay(timeRemaining);
-    timeRemaining--;
   }, 1000);
-}
-
-function updateTimerDisplay(time) {
-  var minutes = Math.floor(time / 60);
-  var seconds = time % 60;
-  var display = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-  document.getElementById("timer").innerText = "Tiempo: " + display;
 }
 
 function endGame() {
