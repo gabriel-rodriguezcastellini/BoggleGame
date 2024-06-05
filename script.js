@@ -165,6 +165,8 @@ function startTimer() {
 function endGame() {
   showModal("El tiempo se ha acabado! Tu puntaje final es: " + score);
   disableBoard();
+  saveGameResult(document.getElementById("player-name").value, score);
+  displayGameResults();
 }
 
 function showModal(message) {
@@ -262,6 +264,34 @@ function updateCurrentWord() {
   var currentWordElement = document.getElementById("current-word");
   currentWordElement.innerText = selectedLetters.join("");
 }
+
+function saveGameResult(name, score) {
+  const gameResult = {
+    name: name,
+    score: score,
+    date: new Date().toLocaleString(),
+  };
+
+  let gameResults = JSON.parse(localStorage.getItem("gameResults")) || [];
+  gameResults.push(gameResult);
+  localStorage.setItem("gameResults", JSON.stringify(gameResults));
+}
+
+function displayGameResults() {
+  const gameResults = JSON.parse(localStorage.getItem("gameResults")) || [];
+  const resultsList = document.getElementById("results-list");
+  resultsList.innerHTML = "";
+
+  gameResults.forEach((result) => {
+    const listItem = document.createElement("li");
+    listItem.textContent = `Nombre: ${result.name}, Puntaje: ${result.score}, Fecha: ${result.date}`;
+    resultsList.appendChild(listItem);
+  });
+}
+
+window.onload = function () {
+  displayGameResults();
+};
 
 document.getElementById("player-form").addEventListener("submit", startGame);
 document.getElementById("word-form").addEventListener("submit", submitWord);
