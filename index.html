@@ -48,13 +48,19 @@
         <button type="submit">Enviar Palabra</button>
       </form>
       <ul id="word-list"></ul>
+      <button id="show-ranking">Mostrar Ranking</button>
     </div>
     <div id="current-word"></div>
-    <h2>Resultados anteriores:</h2>
-    <ul id="results-list"></ul>
     <footer>
       <p>&copy; 2024 Boggle</p>
     </footer>
+    <div id="ranking-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-ranking-button">&times;</span>
+        <h2>Ranking</h2>
+        <ul id="ranking-list"></ul>
+      </div>
+    </div>
     <div id="modal" class="modal">
       <div class="modal-content">
         <span class="close-button">&times;</span>

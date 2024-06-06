@@ -166,7 +166,6 @@ function endGame() {
   showModal("El tiempo se ha acabado! Tu puntaje final es: " + score);
   disableBoard();
   saveGameResult(document.getElementById("player-name").value, score);
-  displayGameResults();
 }
 
 function showModal(message) {
@@ -277,21 +276,38 @@ function saveGameResult(name, score) {
   localStorage.setItem("gameResults", JSON.stringify(gameResults));
 }
 
-function displayGameResults() {
+function displayRanking() {
   const gameResults = JSON.parse(localStorage.getItem("gameResults")) || [];
-  const resultsList = document.getElementById("results-list");
-  resultsList.innerHTML = "";
-
+  const rankingList = document.getElementById("ranking-list");
+  rankingList.innerHTML = "";
+  gameResults.sort((a, b) => b.score - a.score);
   gameResults.forEach((result) => {
     const listItem = document.createElement("li");
     listItem.textContent = `Nombre: ${result.name}, Puntaje: ${result.score}, Fecha: ${result.date}`;
-    resultsList.appendChild(listItem);
+    rankingList.appendChild(listItem);
   });
 }
 
-window.onload = function () {
-  displayGameResults();
-};
+document.addEventListener("DOMContentLoaded", () => {
+  const showRankingButton = document.getElementById("show-ranking");
+  const rankingModal = document.getElementById("ranking-modal");
+  const closeRankingButton = document.querySelector(".close-ranking-button");
+
+  showRankingButton.addEventListener("click", () => {
+    displayRanking();
+    rankingModal.style.display = "block";
+  });
+
+  closeRankingButton.addEventListener("click", () => {
+    rankingModal.style.display = "none";
+  });
+
+  window.addEventListener("click", (event) => {
+    if (event.target == rankingModal) {
+      rankingModal.style.display = "none";
+    }
+  });
+});
 
 document.getElementById("player-form").addEventListener("submit", startGame);
 document.getElementById("word-form").addEventListener("submit", submitWord);

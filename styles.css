@@ -151,7 +151,8 @@ form button:hover {
   text-align: center;
 }
 
-.close-button {
+.close-button,
+.close-ranking-button {
   color: #aaa;
   float: right;
   font-size: 28px;
@@ -159,7 +160,9 @@ form button:hover {
 }
 
 .close-button:hover,
-.close-button:focus {
+.close-button:focus,
+.close-ranking-button:hover,
+.close-ranking-button:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
@@ -183,4 +186,16 @@ a {
 #timer.warning {
   color: red;
   font-weight: bold;
+}
+
+#ranking-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+#ranking-list li {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #f1f1f1;
+  border: 1px solid #ccc;
 }
