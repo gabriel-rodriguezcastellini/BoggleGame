@@ -276,11 +276,17 @@ function saveGameResult(name, score) {
   localStorage.setItem("gameResults", JSON.stringify(gameResults));
 }
 
-function displayRanking() {
+function displayRanking(orderBy) {
   const gameResults = JSON.parse(localStorage.getItem("gameResults")) || [];
   const rankingList = document.getElementById("ranking-list");
   rankingList.innerHTML = "";
-  gameResults.sort((a, b) => b.score - a.score);
+
+  if (orderBy === "score") {
+    gameResults.sort((a, b) => b.score - a.score);
+  } else if (orderBy === "date") {
+    gameResults.sort((a, b) => new Date(b.date) - new Date(a.date));
+  }
+
   gameResults.forEach((result) => {
     const listItem = document.createElement("li");
     listItem.textContent = `Nombre: ${result.name}, Puntaje: ${result.score}, Fecha: ${result.date}`;
@@ -292,9 +298,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const showRankingButton = document.getElementById("show-ranking");
   const rankingModal = document.getElementById("ranking-modal");
   const closeRankingButton = document.querySelector(".close-ranking-button");
+  const sortSelect = document.getElementById("sort-select");
 
   showRankingButton.addEventListener("click", () => {
-    displayRanking();
+    displayRanking(sortSelect.value);
     rankingModal.style.display = "block";
   });
 
@@ -306,6 +313,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.target == rankingModal) {
       rankingModal.style.display = "none";
     }
+  });
+
+  sortSelect.addEventListener("change", () => {
+    displayRanking(sortSelect.value);
   });
 });
 
