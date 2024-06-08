@@ -31,7 +31,7 @@ document
       return;
     }
 
-    var mailtoLink = `mailto:destinatario@example.com?subject=Mensaje de ${encodeURIComponent(
+    var mailtoLink = `mailto:gabriel.rodriguezcastellini@outlook.com?subject=Mensaje de ${encodeURIComponent(
       name
     )}&body=${encodeURIComponent(message)}%0A%0ACorreo: ${encodeURIComponent(
       email
