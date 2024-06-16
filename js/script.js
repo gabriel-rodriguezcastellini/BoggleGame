@@ -14,10 +14,12 @@ var selectedPositions = [];
 function startGame(event) {
   event.preventDefault();
   var playerName = document.getElementById("player-name").value;
+
   if (playerName.length < 3) {
     showModal("El nombre debe tener al menos 3 letras");
     return;
   }
+
   initializeBoard();
   startTimer();
 }
@@ -29,8 +31,10 @@ function initializeBoard() {
   selectedLetters = [];
   selectedPositions = [];
   var letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
   for (var i = 0; i < boardSize; i++) {
     boardLetters[i] = [];
+
     for (var j = 0; j < boardSize; j++) {
       var letter = letters.charAt(Math.floor(Math.random() * letters.length));
       boardLetters[i][j] = letter;
@@ -49,10 +53,10 @@ function selectLetter(event) {
   var selectedCell = event.target;
   var selectedRow = parseInt(selectedCell.dataset.row);
   var selectedCol = parseInt(selectedCell.dataset.col);
-
   var posIndex = selectedPositions.findIndex(
     (pos) => pos[0] === selectedRow && pos[1] === selectedCol
   );
+
   if (posIndex !== -1) {
     selectedLetters.splice(posIndex, 1);
     selectedPositions.splice(posIndex, 1);
@@ -65,6 +69,7 @@ function selectLetter(event) {
 
   if (selectedPositions.length > 0) {
     var lastPos = selectedPositions[selectedPositions.length - 1];
+
     if (!isContiguous(lastPos[0], lastPos[1], selectedRow, selectedCol)) {
       showModal("Las letras deben ser contiguas");
       return;
@@ -94,7 +99,6 @@ function updateLastSelected() {
 
   var lastSelectedRow = selectedPositions[selectedPositions.length - 1][0];
   var lastSelectedCol = selectedPositions[selectedPositions.length - 1][1];
-
   document
     .querySelector(
       `[data-row="${lastSelectedRow}"][data-col="${lastSelectedCol}"]`
@@ -143,15 +147,15 @@ function startTimer() {
   var timerElement = document.getElementById("timer");
   timerElement.textContent = `Tiempo restante: ${timeLeft} segundos`;
   timerElement.classList.remove("warning");
-
   timer = setInterval(() => {
     timeLeft--;
     timerElement.textContent = `Tiempo restante: ${timeLeft} segundos`;
 
     if (timeLeft <= 10) {
       timerElement.classList.add("warning");
+
       if (timeLeft === 10) {
-        alertSound.play(); // Reproducir sonido de alerta
+        alertSound.play();
       }
     }
 
@@ -172,10 +176,8 @@ function showModal(message) {
   var modal = document.getElementById("modal");
   var modalMessage = document.getElementById("modal-message");
   var closeButton = document.querySelector(".close-button");
-
   modalMessage.innerText = message;
   modal.style.display = "block";
-
   closeButton.onclick = function () {
     modal.style.display = "none";
   };
@@ -190,6 +192,7 @@ function showModal(message) {
 function disableBoard() {
   var board = document.getElementById("game-board");
   var letters = board.getElementsByTagName("div");
+
   for (var i = 0; i < letters.length; i++) {
     letters[i].style.pointerEvents = "none";
     letters[i].style.opacity = "0.5";
@@ -221,7 +224,6 @@ async function submitWord(event) {
   wordsFound.push(word);
   updateScore(word.length);
   updateWordList(word);
-
   resetSelection();
 }
 
@@ -234,9 +236,11 @@ async function isValidWord(word) {
 
 function updateScore(points) {
   score += points;
+
   if (score < 0) {
     score = 0;
   }
+
   document.getElementById("score").innerText = "Puntaje: " + score;
 }
 
@@ -270,7 +274,6 @@ function saveGameResult(name, score) {
     score: score,
     date: new Date().toLocaleString(),
   };
-
   let gameResults = JSON.parse(localStorage.getItem("gameResults")) || [];
   gameResults.push(gameResult);
   localStorage.setItem("gameResults", JSON.stringify(gameResults));
@@ -299,26 +302,21 @@ document.addEventListener("DOMContentLoaded", () => {
   const rankingModal = document.getElementById("ranking-modal");
   const closeRankingButton = document.querySelector(".close-ranking-button");
   const sortSelect = document.getElementById("sort-select");
-
   showRankingButton.addEventListener("click", () => {
     displayRanking(sortSelect.value);
     rankingModal.style.display = "block";
   });
-
   closeRankingButton.addEventListener("click", () => {
     rankingModal.style.display = "none";
   });
-
   window.addEventListener("click", (event) => {
     if (event.target == rankingModal) {
       rankingModal.style.display = "none";
     }
   });
-
   sortSelect.addEventListener("change", () => {
     displayRanking(sortSelect.value);
   });
 });
-
 document.getElementById("player-form").addEventListener("submit", startGame);
 document.getElementById("word-form").addEventListener("submit", submitWord);
