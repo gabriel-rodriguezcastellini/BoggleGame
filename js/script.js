@@ -118,9 +118,9 @@ function updateNextSelectable() {
   var lastSelectedRow = selectedPositions[selectedPositions.length - 1][0];
   var lastSelectedCol = selectedPositions[selectedPositions.length - 1][1];
 
-  for (let row = lastSelectedRow - 1; row <= lastSelectedRow + 1; row++) {
-    for (let col = lastSelectedCol - 1; col <= lastSelectedCol + 1; col++) {
-      let cell = document.querySelector(
+  for (var row = lastSelectedRow - 1; row <= lastSelectedRow + 1; row++) {
+    for (var col = lastSelectedCol - 1; col <= lastSelectedCol + 1; col++) {
+      var cell = document.querySelector(
         `[data-row="${row}"][data-col="${col}"]`
       );
 
@@ -269,19 +269,19 @@ function updateCurrentWord() {
 }
 
 function saveGameResult(name, score) {
-  const gameResult = {
+  var gameResult = {
     name: name,
     score: score,
     date: new Date().toLocaleString(),
   };
-  let gameResults = JSON.parse(localStorage.getItem("gameResults")) || [];
+  var gameResults = JSON.parse(localStorage.getItem("gameResults")) || [];
   gameResults.push(gameResult);
   localStorage.setItem("gameResults", JSON.stringify(gameResults));
 }
 
 function displayRanking(orderBy) {
-  const gameResults = JSON.parse(localStorage.getItem("gameResults")) || [];
-  const rankingList = document.getElementById("ranking-list");
+  var gameResults = JSON.parse(localStorage.getItem("gameResults")) || [];
+  var rankingList = document.getElementById("ranking-list");
   rankingList.innerHTML = "";
 
   if (orderBy === "score") {
@@ -291,22 +291,22 @@ function displayRanking(orderBy) {
   }
 
   gameResults.forEach((result) => {
-    const listItem = document.createElement("li");
+    var listItem = document.createElement("li");
     listItem.textContent = `Nombre: ${result.name}, Puntaje: ${result.score}, Fecha: ${result.date}`;
     rankingList.appendChild(listItem);
   });
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const showRankingButton = document.getElementById("show-ranking");
-  const rankingModal = document.getElementById("ranking-modal");
-  const closeRankingButton = document.querySelector(".close-ranking-button");
-  const sortSelect = document.getElementById("sort-select");
-  showRankingButton.addEventListener("click", () => {
+document.addEventListener("DOMContentLoaded", function () {
+  var showRankingButton = document.getElementById("show-ranking");
+  var rankingModal = document.getElementById("ranking-modal");
+  var closeRankingButton = document.querySelector(".close-ranking-button");
+  var sortSelect = document.getElementById("sort-select");
+  showRankingButton.addEventListener("click", function () {
     displayRanking(sortSelect.value);
     rankingModal.style.display = "block";
   });
-  closeRankingButton.addEventListener("click", () => {
+  closeRankingButton.addEventListener("click", function () {
     rankingModal.style.display = "none";
   });
   window.addEventListener("click", (event) => {
@@ -314,7 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
       rankingModal.style.display = "none";
     }
   });
-  sortSelect.addEventListener("change", () => {
+  sortSelect.addEventListener("change", function () {
     displayRanking(sortSelect.value);
   });
 });
