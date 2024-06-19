@@ -34,6 +34,8 @@ nav ul li {
 nav ul li a {
   color: #fff;
   text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: background-color 0.3s ease;
 }
 
 nav ul li a:hover {
