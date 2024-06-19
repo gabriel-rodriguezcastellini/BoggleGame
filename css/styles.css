@@ -17,6 +17,8 @@ footer {
 
 nav {
   background-color: #333;
+  padding: 1rem 0;
+  text-align: center;
 }
 
 nav ul {
