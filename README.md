@@ -76,4 +76,4 @@ Las contribuciones son bienvenidas. Por favor seguí estos pasos para contribuir
 Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
 
 [![pages-build-deployment](https://github.com/gabriel-rodriguezcastellini/BoggleGame/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/gabriel-rodriguezcastellini/BoggleGame/actions/workflows/pages/pages-build-deployment)
-[![CodeQL](https://github.com/gabriel-rodriguezcastellini/BoggleGame/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/gabriel-rodriguezcastellini/BoggleGame/actions/workflows/github-code-scanning/codeql)
+[![CodeQL](https://github.com/gabriel-rodriguezcastellini/BoggleGame/actions/workflows/codeql.yml/badge.svg)](https://github.com/gabriel-rodriguezcastellini/BoggleGame/actions/workflows/codeql.yml)
